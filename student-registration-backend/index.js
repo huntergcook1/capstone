@@ -8,7 +8,7 @@ const pool = require('./db'); // Import the database pool (from the new db.js)
 const authRoutes = require('./routes/authRoutes'); // Import auth routes
 const passport = require('passport'); // Import passport
 require('./config/passportConfig')(passport); // Configure passport strategies
-
+const userRoutes = require('./routes/userRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -27,6 +27,7 @@ app.get('/', (req, res) => {
 // Mount Authentication Routes
 // All routes in authRoutes.js will be prefixed with /api/auth
 app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes); // Mount user routes
 
 // Start the server
 app.listen(PORT, () => {
