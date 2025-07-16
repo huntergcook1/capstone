@@ -1,4 +1,4 @@
-// index.js
+
 
 require('dotenv').config(); // Load environment variables first
 
