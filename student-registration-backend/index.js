@@ -1,5 +1,3 @@
-
-
 require('dotenv').config(); // Load environment variables first
 
 const express = require('express');
@@ -11,8 +9,8 @@ require('./config/passportConfig')(passport); // Configure passport strategies
 const userRoutes = require('./routes/userRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
-
-// Middleware
+const courseRoutes = require('./routes/courseRoutes'); // Import course routes
+// Middlewarez
 app.use(express.json()); // Enable parsing of JSON request bodies
 app.use(cors()); // Enable CORS for all routes
 
@@ -28,6 +26,9 @@ app.get('/', (req, res) => {
 // All routes in authRoutes.js will be prefixed with /api/auth
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes); // Mount user routes
+
+// Mount Course Routes
+app.use('/api/courses', courseRoutes); // Mount course routes
 
 // Start the server
 app.listen(PORT, () => {
