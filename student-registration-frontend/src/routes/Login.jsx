@@ -41,19 +41,19 @@ function Login() {
 
   return (
     <>
-        <Navbar/>
-        <div className='flex justify-center items-center w-full'>
-            <div className='flex flex-col justify-between p-10 h-100 w-80 bg-green-600'>
-                <h1>Login</h1>
-                <form className='flex flex-col w-full' onSubmit={handleSubmit}>
-                    <input className='border border-solid rounded p-1 bg-white' name="email" type="email" placeholder="Email" onChange={handleChange} required />
-                    <input className='border border-solid rounded p-1 bg-white' name="password" type="password" placeholder="Password" onChange={handleChange} required />
-                    <button className='border border-solid rounded p-1 bg-white' type="submit">Login</button>
-                </form>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-                <Link to="/newAccount">Register</Link>
-            </div>
-        </div>
+      <Navbar/>
+      <div className='flex justify-center items-center w-full'>
+          <div className='flex flex-col justify-center gap-5 p-10 mt-40 h-100 w-80 rounded-xl bg-green-600'>
+              <h1>Login</h1>
+              <form className='flex flex-col gap-1 w-full' onSubmit={handleSubmit}>
+                  <input className='border border-solid rounded p-1 bg-white' name="email" type="email" placeholder="Email" onChange={handleChange} required />
+                  <input className='border border-solid rounded p-1 bg-white' name="password" type="password" placeholder="Password" onChange={handleChange} required />
+                  <button className='border border-solid rounded p-1 bg-white' type="submit">Login</button>
+              </form>
+              {error && <p style={{ color: 'red' }}>{error}</p>}
+              <Link to="/newAccount">Register</Link>
+          </div>
+      </div>
     </>
   );
 }

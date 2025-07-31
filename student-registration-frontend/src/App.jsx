@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './pages/Login';
-import Home from './pages/Main';
-import Courses from './pages/Courses'
-import Students from './pages/Students';
-import Register from './pages/Register';
+import Login from './routes/Login';
+import Home from './routes/Main';
+import Courses from './routes/Courses'
+import Students from './routes/Students';
+import Register from './routes/Register';
 import Navbar from './components/Navbar';
 import './App.css'
 
