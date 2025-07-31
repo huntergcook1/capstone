@@ -8,7 +8,7 @@ function Navbar() {
             <nav className='flex justify-between w-200'>
                 <Link className='text-center rounded-lg p-1 w-20 bg-white' to="/home">Home</Link>
                 <Link className='text-center rounded-lg p-1 w-20 bg-white' to="/Courses">Courses</Link>
-                <Link className='text-center rounded-lg p-1 w-20 bg-white' to="/Students">Students</Link>
+                <Link className='text-center rounded-lg p-1 w-20 bg-white' to="/Students">Student</Link>
                 <Link className='text-center rounded-lg p-1 w-20 bg-white' to="/">Logout</Link>
             </nav>
         </div>
