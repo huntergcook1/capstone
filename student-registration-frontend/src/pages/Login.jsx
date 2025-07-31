@@ -1,18 +1,32 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 function Login() {
-    return (
-        <>
-            <div className="flex flex-col justify-center items-center rounded-2xl text-white bg-green-600 p-5 h-100 w-90">
-                <div className="flex flex-col justify-center items-center h-full w-full">
-                    <h1 className="text-2xl font-bold">Login</h1>
-                    <form className="flex flex-col justify-center h-full w-full" action="">
-                        <input type="text" placeholder="Email/Username" />
-                        <input type="text" placeholder="Email/Password" />
-                        <button className="rounded-2xl w-25 bg-white text-black">Login</button>
-                    </form>
-                </div>
-            </div>
-        </>
-    )
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+
+  function handleChange(e) {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log('Logging in:', formData);
+  }
+
+  return (
+    <>
+      <h1>Login</h1>
+      <form onSubmit={handleSubmit}>
+        <input name="email" type="email" placeholder="Email" onChange={handleChange} required />
+        <input name="password" type="password" placeholder="Password" onChange={handleChange} required />
+        <button type="submit">Login</button>
+        <Link to="/newAccount">New Account</Link>
+      </form>
+    </>
+  );
 }
 
-export default Login
+export default Login;
