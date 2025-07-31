@@ -1,6 +1,11 @@
+import Navbar from "../components/Navbar";
+
 function Students() {
   return (
-    <h1>Students Profile</h1>
+    <>
+      <Navbar/>
+      <h1>Students Profile</h1>
+    </>
   ) 
 }
 
