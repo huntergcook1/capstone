@@ -10,6 +10,7 @@ const userRoutes = require('./routes/userRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 const courseRoutes = require('./routes/courseRoutes'); // Import course routes
+const studentCourseRoutes = require('./routes/studentCourseRoutes');
 // Middlewarez
 app.use(express.json()); // Enable parsing of JSON request bodies
 app.use(cors()); // Enable CORS for all routes
@@ -29,6 +30,8 @@ app.use('/api/users', userRoutes); // Mount user routes
 
 // Mount Course Routes
 app.use('/api/courses', courseRoutes); // Mount course routes
+
+app.use('/api/student-courses', studentCourseRoutes); // All student-course routes
 
 // Start the server
 app.listen(PORT, () => {
