@@ -31,14 +31,30 @@ router.post('/', authenticateJWT, authorizeAdmin, async (req, res) => {
     }
 });
 
-// --- Get All Courses (Accessible to all authenticated users) ---
-// GET /api/courses
+// --- Get All Courses (Accessible to all authenticated users) with Optional Search ---
+// GET /api/courses?search=<keyword>
 router.get('/', authenticateJWT, async (req, res) => {
+    const { search } = req.query; // Get query parameter
+
+    let query = 'SELECT * FROM courses';
+    const queryParams = [];
+    let paramIndex = 1;
+
+    // Add search condition
+    // Searches course_code, course_name, description (case-insensitive)
+    if (search) {
+        query += ` WHERE (course_code ILIKE $${paramIndex} OR course_name ILIKE $${paramIndex} OR description ILIKE $${paramIndex})`;
+        queryParams.push(`%${search}%`); // ILIKE for case-insensitive partial match
+        paramIndex++;
+    }
+
+    query += ' ORDER BY course_code ASC'; // Always order for consistent results
+
     try {
-        const result = await pool.query('SELECT * FROM courses ORDER BY course_code ASC');
+        const result = await pool.query(query, queryParams);
         res.status(200).json(result.rows);
     } catch (err) {
-        console.error('Error fetching all courses:', err.message);
+        console.error('Error fetching all courses with filters:', err.message);
         res.status(500).json({ msg: 'Server error fetching courses.' });
     }
 });

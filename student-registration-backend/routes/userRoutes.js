@@ -1,18 +1,47 @@
-
+// routes/userRoutes.js
 const express = require('express');
 const router = express.Router();
 const pool = require('../db');
 const bcrypt = require('bcrypt');
 const { authenticateJWT, authorizeAdmin } = require('../middleware/authMiddleware');
 
-// --- Get All Users (Admin Only) ---
-// GET /api/users
+// --- Get All Users (Admin Only) with Optional Search/Filter ---
+// GET /api/users?search=<keyword>&role=<role_name>
 router.get('/', authenticateJWT, authorizeAdmin, async (req, res) => {
+    const { search, role } = req.query; // Get query parameters
+
+    let query = 'SELECT user_id, username, email, first_name, last_name, telephone, address, role FROM users';
+    const queryParams = [];
+    const conditions = [];
+    let paramIndex = 1;
+
+    // Add search condition
+    // Searches username, email, first_name, last_name (case-insensitive)
+    if (search) {
+        conditions.push(`(username ILIKE $${paramIndex} OR email ILIKE $${paramIndex} OR first_name ILIKE $${paramIndex} OR last_name ILIKE $${paramIndex})`);
+        queryParams.push(`%${search}%`); // ILIKE for case-insensitive partial match
+        paramIndex++;
+    }
+
+    // Add role filter condition
+    if (role) {
+        conditions.push(`role = $${paramIndex}`);
+        queryParams.push(role);
+        paramIndex++;
+    }
+
+    // Combine all conditions with 'AND'
+    if (conditions.length > 0) {
+        query += ' WHERE ' + conditions.join(' AND ');
+    }
+
+    query += ' ORDER BY user_id ASC'; // Always order for consistent results
+
     try {
-        const result = await pool.query('SELECT user_id, username, email, first_name, last_name, telephone, address, role FROM users ORDER BY user_id ASC');
+        const result = await pool.query(query, queryParams);
         res.status(200).json(result.rows);
     } catch (err) {
-        console.error('Error fetching all users:', err.message);
+        console.error('Error fetching all users with filters:', err.message);
         res.status(500).json({ msg: 'Server error fetching users.' });
     }
 });
