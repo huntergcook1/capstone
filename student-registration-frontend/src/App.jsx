@@ -4,7 +4,8 @@ import Home from './routes/Home';
 import Courses from './routes/Courses'
 import Students from './routes/Students';
 import Register from './routes/Register';
-import Navbar from './components/Navbar';
+import Admin from './routes/Admin';
+// import Navbar from './components/Navbar';
 import './App.css'
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/students" element={<Students />} />
+        <Route path='/admin' element={<Admin />}/>
         <Route path="/newAccount" element={<Register />} />
       </Routes>
     </Router>
