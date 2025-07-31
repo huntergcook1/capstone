@@ -4,7 +4,7 @@ import Home from './pages/Main';
 import Courses from './pages/Courses'
 import Students from './pages/Students';
 import Navbar from './components/Navbar';
-// import './App.css'
+import './App.css'
 
 function App() {
   // const [count, setCount] = useState(0)
